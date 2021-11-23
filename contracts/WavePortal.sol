@@ -25,7 +25,7 @@ contract WavePortal {
     function uploadPlaylist(string calldata _url) public {
         require(
             lastUpload[msg.sender] + 15 minutes < block.timestamp,
-            "Wait 15m"
+            "Wait 15m before uploading again"
         );
         lastUpload[msg.sender] = block.timestamp;
 
