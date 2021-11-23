@@ -4,19 +4,30 @@ pragma solidity ^0.8.0;
 import "hardhat/console.sol";
 
 contract WavePortal {
-    uint256 totalWaves;
+    string[] playlists;
+    mapping(address => uint) public uploads;
 
     constructor() {
         console.log("Pepe is hereeeeee!");
     }
 
-    function wave() public {
-        totalWaves += 1;
-        console.log("%s has waved!", msg.sender);
+    function uploadPlaylist(string calldata  _url) public {
+        console.log("%s has uploaded an awesome playlist!", msg.sender);
+        uploads[msg.sender] = uploads[msg.sender]++;
+        _savePlaylist(_url);
+    }
+    function _savePlaylist(string memory _url) private {
+        playlists.push(_url);
     }
 
-    function getTotalWaves() public view returns (uint256) {
-        console.log("We have %d total waves!", totalWaves);
-        return totalWaves;
+    function getTotalUploads() public view returns (uint256) {
+        console.log("We have %d total playlists uploaded!", playlists.length);
+        return playlists.length;
     }
+
+    function getPlaylists() public view returns (string[] memory) {
+        // console.log();
+        return playlists;
+    }
+
 }
